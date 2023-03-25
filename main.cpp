@@ -13,6 +13,8 @@ BUGS:
 #include <time.h>
 #include <vector>
 #include <algorithm>
+#include <utility>
+#include <unordered_map>
 #include <random>
 #include "pcg_random.hpp"
 
@@ -285,8 +287,9 @@ public:
     int split_total() const {
         return total(split_hand_);
     }
-
-    virtual void turn(int &bet, Deck &deck) {
+    
+    // upcard only used in derived Bot class but was the only way I could think to add it without too much pain
+    virtual void turn(int &bet, Deck &deck, Card upcard) {
         while (is_active()) {
             std::cout << "Do you want to hit, stand, split, or double down(h/s/sp/d)? ";
             std::string input;
@@ -381,10 +384,52 @@ public:
 
     // must be in this order
     // virtual void double_down(int &wager, Deck &deck) override {}
-
     // virtual void split(int wager, Deck &deck) override {}
    
-    // virtual void turn(int &bet, Deck &deck) override {}
+     virtual void turn(int &bet, Deck &deck, Card upcard) override {
+        while (is_active()) {
+            std::cout << "Do you want to hit, stand, split, or double down(h/s/sp/d)? ";
+            std::string input;
+
+            // TODO: implement basic strategy
+            if (total() < 17) { input = "h"; }
+            else { input = "s"; }
+            
+            // handle input
+            std::cout << input << '\n';
+            if (input == "h") { // hit
+                hit(deck.deal());
+                get_last_card().show();
+                if (total() > 21) {
+                    std::cout << "Bust\n\n";
+                    if (has_split_) { // has split
+                        end_turn();
+                        lose_second_hand();
+                    } else {
+                        lose(bet);
+                    }  
+                }
+                if (split_aces_) {
+                  end_turn();
+                }
+            } else if (input == "s") { // stand
+                end_turn();
+            } else if (input == "d") { // double down
+                if (dd_on_split_ && balance_ >= 4*bet) {
+                    double_down(bet, deck);
+                } else if (has_split_ && balance_ >= 3*bet) {
+                    double_down(bet, deck);
+                } else {
+                    double_down(bet, deck);
+                }
+                
+            } else if (input == "sp") {
+                split(bet, deck);
+            } else {
+                std::cout << "Invalid option, choose 'h', 's', or 'd'\n";
+            }    
+        }
+    }
 };
 
 
@@ -492,6 +537,7 @@ public:
     }
 
     void play() {
+        int i = 1;
         while (player_.get_balance() > player_.get_lower_limit()){ // table minumum
             std::cout << "Balance: $" << player_.get_balance() << '\n';
             int bet = player_.bet();
@@ -521,7 +567,7 @@ public:
                 std::cout << "Dealer shows: " << dealer_.get_last_card() << '\n';
                 std::cout << "Dealer has blackjack. You lose.\n\n";
             } else {
-                player_.turn(bet, deck_);
+                player_.turn(bet, deck_, dealer_.get_first_card());
                 if (!player_.is_lost()){
                     dealer_turn(bet);
                 }
@@ -529,8 +575,10 @@ public:
             // clear player and dealer hands
             player_.reset();
             dealer_.reset();
+            ++i;
         }
 
+        std::cout << i << '\n';
         std::cout << "Out of money.\n";
     }
 };
