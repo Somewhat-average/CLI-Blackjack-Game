@@ -1,5 +1,5 @@
 CC=g++
-CFLAGS=-c -Wall
+CFLAGS=-c -Wall -Werror -Wpedantic
 LDFLAGS=
 SOURCES=main.cpp card.cpp deck.cpp hand.cpp player.cpp dealer.cpp ui.cpp blackjack.cpp
 OBJECTS=$(SOURCES:.cpp=.o)
