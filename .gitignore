@@ -1,0 +1,4 @@
+# Ignore .exe, .o, and .log files
+*.exe
+*.o
+*.log
