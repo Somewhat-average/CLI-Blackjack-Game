@@ -1,6 +1,6 @@
 CC=g++
 CFLAGS=-c -Wall -Werror -Wpedantic
-LDFLAGS=
+LDFLAGS=-static
 SOURCES=main.cpp card.cpp deck.cpp hand.cpp player.cpp dealer.cpp ui.cpp blackjack.cpp
 OBJECTS=$(SOURCES:.cpp=.o)
 EXECUTABLE=blackjack
@@ -10,6 +10,8 @@ TEST_EXECUTABLE=tests
 
 ifeq ($(OS),Windows_NT)
     RM = del /Q /F
+    EXECUTABLE := $(EXECUTABLE).exe
+    TEST_EXECUTABLE := $(TEST_EXECUTABLE).exe
 else
     RM = rm -f
 endif

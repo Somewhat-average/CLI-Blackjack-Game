@@ -5,15 +5,26 @@
 #include <limits>
 
 int BlackjackUI::promptBet(int balance) {
+    const int MIN_BET = 1;
     int bet = 0;
+    bool validInput = false;
+
     do {
         std::cout << "Your current balance is: $" << balance << '\n';
         std::cout << "Enter your bet: ";
-        std::cin >> bet;
-        if (bet < 1 || bet > balance) {
-            std::cerr << "Invalid bet. Please enter a bet between 1 and your current balance.\n";
+
+        if (!(std::cin >> bet)) {
+            std::cerr << "Invalid input. Please enter a valid numeric bet.\n";
+            std::cin.clear();
+            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+        } else if (bet < MIN_BET || bet > balance) {
+            std::cerr << "Invalid bet. Please enter a bet between $" << MIN_BET << " and your current balance.\n";
+        } else {
+            validInput = true;
         }
-    } while (bet < 1 || bet > balance);
+    } while (!validInput);
+
+    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
     return bet;
 }
 
@@ -23,7 +34,6 @@ char BlackjackUI::promptAction() {
 
     while (!validInput) {
         std::cout << "Enter action (h: Hit, s: Stand, d: Double, p: Split): ";
-        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); // Add this line
         std::getline(std::cin, input);
 
         if (!input.empty()) {
@@ -36,11 +46,11 @@ char BlackjackUI::promptAction() {
                     validInput = true;
                     return action;
                 default:
-                    std::cout << "Invalid input. Please try again.\n";
+                    std::cerr << "Invalid input. Please try again.\n";
                     break;
             }
         } else {
-            std::cout << "Invalid input. Please try again.\n";
+            std::cerr << "Invalid input. Please try again.\n";
         }
     }
 

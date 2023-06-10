@@ -61,16 +61,29 @@ void Player::doubleDown(int handIndex, const Card &card) {
 
 void Player::splitHand(int handIndex, const Card &card1, const Card &card2) {
     if (handIndex >= 0 && static_cast<size_t>(handIndex) < hands.size()) {
-        if (hands[handIndex].cards.size() == 2 && hands[handIndex].cards[0].value == hands[handIndex].cards[1].value) {
-            Hand newHand;
-            newHand.cards.push_back(hands[handIndex].cards[1]);
-            newHand.cards.push_back(card2);
-            hands[handIndex].cards.pop_back();
-            hands[handIndex].cards.push_back(card1);
-            hands.push_back(newHand);
-            bets.push_back(bets[handIndex]);
-            balance -= bets[handIndex];
+        if (hands[handIndex].cards.size() == 2 && hands[handIndex].cards[0].rank == hands[handIndex].cards[1].rank) {
+            if (balance >= bets[handIndex]) {
+                Hand newHand;
+
+                newHand.cards.push_back(hands[handIndex].cards[1]);
+                newHand.cards.push_back(card2);
+
+                hands[handIndex].cards.pop_back();
+                hands[handIndex].cards.push_back(card1);
+
+                hands.push_back(newHand);
+
+                bets.push_back(bets[handIndex]);
+                balance -= bets[handIndex];
+            } else {
+                std::cerr << "Insufficient balance to split hand.\n";
+            }
+        } else {
+            std::cerr << "Cannot split hand. Cards must be of the same rank.\n";
         }
+    } else {
+        std::cerr << "Invalid hand index.\n";
     }
 }
+
 
