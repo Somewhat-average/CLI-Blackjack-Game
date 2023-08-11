@@ -64,11 +64,11 @@ void BlackjackUI::displayError(const std::string& errorMessage) {
 
 void BlackjackUI::displayBlackjackOutcome(bool playerHasBlackjack, bool dealerHasBlackjack) {
     if (playerHasBlackjack && dealerHasBlackjack) {
-        std::cout << "Both player and dealer have blackjack. It's a push!\n";
+        std::cout << "Both player and dealer have blackjack. It's a push!\n\n";
     } else if (playerHasBlackjack) {
-        std::cout << "Player has blackjack!\n";
+        std::cout << "Player has blackjack!\n\n";
     } else if (dealerHasBlackjack) {
-        std::cout << "Dealer has blackjack!\n";
+        std::cout << "Dealer has blackjack!\n\n";
     }
 }
 
