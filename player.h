@@ -22,8 +22,8 @@ public:
     void winBet(int betAmount);
     void resetHands();
     void resetBets();
-    void doubleDown(int handIndex, const Card& card);
-    void splitHand(int handIndex, const Card& card1, const Card& card2);
+    bool doubleDown(int handIndex, const Card& card);
+    bool splitHand(int handIndex, const Card& card1, const Card& card2);
 
 private:
     int calculateHandValue(const Hand &hand) const;

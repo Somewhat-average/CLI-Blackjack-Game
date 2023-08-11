@@ -58,6 +58,10 @@ char BlackjackUI::promptAction() {
     return ' ';
 }
 
+void BlackjackUI::displayError(const std::string& errorMessage) {
+    std::cout << "Error: " << errorMessage << std::endl;
+}
+
 void BlackjackUI::displayBlackjackOutcome(bool playerHasBlackjack, bool dealerHasBlackjack) {
     if (playerHasBlackjack && dealerHasBlackjack) {
         std::cout << "Both player and dealer have blackjack. It's a push!\n";
@@ -105,13 +109,13 @@ void BlackjackUI::displayRoundResult(const std::shared_ptr<Player>& playerPtr, c
         int playerHandValue = player.getHandValue(i);
 
         if (playerHandValue > 21) {
-            std::cout << "Player's hand " << i + 1 << " busted.\n";
+            std::cout << "Player's hand " << i + 1 << " busted.\n\n";
         } else if (dealerHandValue > 21 || dealerHandValue < playerHandValue) {
-            std::cout << "Player's hand " << i + 1 << " wins!\n";
+            std::cout << "Player's hand " << i + 1 << " wins!\n\n";
         } else if (dealerHandValue == playerHandValue) {
-            std::cout << "Player's hand " << i + 1 << " pushes (draw).\n";
+            std::cout << "Player's hand " << i + 1 << " pushes (draw).\n\n";
         } else {
-            std::cout << "Player's hand " << i + 1 << " loses.\n";
+            std::cout << "Player's hand " << i + 1 << " loses.\n\n";
         }
     }
 }

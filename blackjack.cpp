@@ -5,7 +5,6 @@ BlackjackGame::BlackjackGame(std::shared_ptr<Player> player) : player(player) {}
 void BlackjackGame::playRound() {
     // Place bet
     int bet = ui.promptBet(player->balance);
-    std::cout << "bet entered: " << bet << std::endl;
     player->placeBet(bet);
 
     // Deal initial cards
@@ -44,15 +43,23 @@ void BlackjackGame::playRound() {
             } else if (action == 's') {
                 break;
             } else if (action == 'd') {
-                player->doubleDown(currentHand, deck.drawCard());
-                ui.displayHand(player->hands[currentHand]);
-                if (player->getHandValue(currentHand) > 21) {
-                    // Player busted after doubling down
-                    allPlayerHandsBusted = true;
+                if (player->doubleDown(currentHand, deck.drawCard())) {
+                    ui.displayHand(player->hands[currentHand]);
+                    if (player->getHandValue(currentHand) > 21) {
+                        // Player busted after doubling down
+                        allPlayerHandsBusted = true;
+                    }
+                    break;
+                } else {
+                    ui.displayError("You cannot double down this hand");
                 }
-                break;
+
             } else if (action == 'p') {
-                player->splitHand(currentHand, deck.drawCard(), deck.drawCard());
+                if (player->splitHand(currentHand, deck.drawCard(), deck.drawCard())) {
+                    // split successful
+                } else {
+                    ui.displayError("You cannot split this hand");
+                }
             }
         }
 
