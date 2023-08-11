@@ -27,6 +27,11 @@ void BlackjackGame::playRound() {
         } else if (playerHasBlackjack) {
             player->blackjackWin(bet);
         }
+        
+        player->resetHands();
+        player->resetBets();
+        dealer.resetHand();
+        
         return;
     }
 
