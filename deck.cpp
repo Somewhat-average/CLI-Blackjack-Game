@@ -20,16 +20,17 @@ Deck::Deck() {
 	shuffleDeck();
 }
 
+
 void Deck::shuffleDeck() {
     // Create a PCG engine and seed it with a combination of random device and chrono
     std::random_device rd;
     auto seed = std::chrono::high_resolution_clock::now().time_since_epoch().count();
-    std::seed_seq seedSequence{ rd(), static_cast<unsigned int>(seed & 0xffffffff), static_cast<unsigned int>(seed >> 32) };
-    pcg32 engine(seedSequence);
+    PCG engine(seed, rd());  // Use the PCG class with seed and sequence
     
     // Shuffle the elements in the cards_ container using the random engine
     std::shuffle(deck.begin(), deck.end(), engine);
 }
+
 
 Card Deck::drawCard() {
     if (currentIndex >= deck.size()) {

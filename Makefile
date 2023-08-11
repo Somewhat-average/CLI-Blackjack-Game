@@ -1,10 +1,10 @@
 CC=g++
 CFLAGS=-c -Wall -Werror -Wpedantic
 LDFLAGS=-static
-SOURCES=main.cpp card.cpp deck.cpp hand.cpp player.cpp dealer.cpp ui.cpp blackjack.cpp
+SOURCES=main.cpp card.cpp deck.cpp hand.cpp player.cpp dealer.cpp ui.cpp pcg.cpp blackjack.cpp
 OBJECTS=$(SOURCES:.cpp=.o)
 EXECUTABLE=blackjack
-TEST_SOURCES=tests.cpp card.cpp deck.cpp hand.cpp player.cpp dealer.cpp ui.cpp
+TEST_SOURCES=tests.cpp card.cpp deck.cpp hand.cpp player.cpp dealer.cpp ui.cpp pcg.cpp
 TEST_OBJECTS=$(TEST_SOURCES:.cpp=.o)
 TEST_EXECUTABLE=tests
 
