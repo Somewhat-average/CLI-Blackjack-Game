@@ -185,16 +185,18 @@ void test_push() {
     Dealer dealer;
 
     // Initial bet
-    player.placeBet(100);
+    player.placeBet(1000);
     if (DEBUG)
         std::cout << "After initial bet, balance: " << player.balance << std::endl;
-    assert(player.balance == 900);
+    assert(player.balance == 0);
 
     // Cards for the player and dealer
     Card playerCard1("♠", "K", 10);
-    Card playerCard2("♠", "7", 7);  // Player's hand is 17
-    Card dealerCard1("♠", "Q", 10);
-    Card dealerCard2("♠", "7", 7);  // Dealer's hand is 17, which pushes with the player's hand
+    Card playerCard2("♠", "J", 10);  // Player's hand is 20
+    Card dealerCard1("♣", "4", 4);
+    Card dealerCard2("♣", "5", 5);
+    Card dealerCard3("♣", "6", 6);
+    Card dealerCard4("♣", "5", 5);  // Dealer's hand is 20, which pushes with the player's hand
 
     // Player's hand
     player.addCardToHand(playerCard1, 0);
@@ -203,6 +205,8 @@ void test_push() {
     // Dealer's hand
     dealer.addCardToHand(dealerCard1);
     dealer.addCardToHand(dealerCard2);
+    dealer.addCardToHand(dealerCard3);
+    dealer.addCardToHand(dealerCard4);
 
     // Check if the player's hand pushes with the dealer's hand
     if (dealer.getHandValue() == player.getHandValue(0)) {
@@ -211,7 +215,7 @@ void test_push() {
 
     if (DEBUG)
         std::cout << "After comparing with dealer, balance: " << player.balance << std::endl;
-    assert(player.balance == 1000);  // 1000 - 100 (bet) + 100 (push refund)
+    assert(player.balance == 1000);  // 1000 - 1000 (bet) + 1000 (push refund)
 }
 
 void test_player() {
