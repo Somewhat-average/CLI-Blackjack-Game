@@ -178,6 +178,42 @@ void test_double_down_after_split() {
     assert(player.balance == 70); // Check if the bet was doubled for the first split hand
 }
 
+void test_push() {
+    if (DEBUG)
+        std::cout << "\ntest_push:\n";
+    Player player(1000);
+    Dealer dealer;
+
+    // Initial bet
+    player.placeBet(100);
+    if (DEBUG)
+        std::cout << "After initial bet, balance: " << player.balance << std::endl;
+    assert(player.balance == 900);
+
+    // Cards for the player and dealer
+    Card playerCard1("♠", "K", 10);
+    Card playerCard2("♠", "7", 7);  // Player's hand is 17
+    Card dealerCard1("♠", "Q", 10);
+    Card dealerCard2("♠", "7", 7);  // Dealer's hand is 17, which pushes with the player's hand
+
+    // Player's hand
+    player.addCardToHand(playerCard1, 0);
+    player.addCardToHand(playerCard2, 0);
+
+    // Dealer's hand
+    dealer.addCardToHand(dealerCard1);
+    dealer.addCardToHand(dealerCard2);
+
+    // Check if the player's hand pushes with the dealer's hand
+    if (dealer.getHandValue() == player.getHandValue(0)) {
+        player.push(0); // Refund the bet for the hand
+    }
+
+    if (DEBUG)
+        std::cout << "After comparing with dealer, balance: " << player.balance << std::endl;
+    assert(player.balance == 1000);  // 1000 - 100 (bet) + 100 (push refund)
+}
+
 void test_player() {
     Player player(100);
     player.placeBet(10);
@@ -285,6 +321,7 @@ int main() {
     test_hand();
     test_player();
     test_dealer();
+    test_push();
     test_double_down();
     test_split();
 
