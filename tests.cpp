@@ -86,6 +86,48 @@ void test_double_down_balance() {
     assert(player.balance == 800);  // 1200 - 200 - 200 (due to double down)
 }
 
+void test_push_after_double_down() {
+    if (DEBUG)
+        std::cout << "\ntest_push_after_double_down:\n";
+    Player player(1000);
+    Dealer dealer;
+
+    // Initial bet
+    player.placeBet(100);
+    if (DEBUG)
+        std::cout << "After initial bet, balance: " << player.balance << std::endl;
+    assert(player.balance == 900);
+
+    // Cards for the player and dealer
+    Card playerCard1("♠", "5", 5);
+    Card playerCard2("♠", "6", 6);
+    Card doubleDownCard("♣", "6", 6);  // This card ensures the player's total is 17
+    Card dealerCard1("♠", "K", 10);
+    Card dealerCard2("♠", "7", 7);  // Dealer's hand is 17, which pushes with the player's hand
+
+    // Player's hand
+    player.addCardToHand(playerCard1, 0);
+    player.addCardToHand(playerCard2, 0);
+
+    // Player doubles down
+    player.doubleDown(0, doubleDownCard);
+    if (DEBUG)
+        std::cout << "After double down, balance: " << player.balance << std::endl;
+
+    // Dealer's hand
+    dealer.addCardToHand(dealerCard1);
+    dealer.addCardToHand(dealerCard2);
+
+    // Check if the player's hand pushes with the dealer's hand
+    if (dealer.getHandValue() == player.getHandValue(0)) {
+        player.push(0); // Refund the bet for the hand
+    }
+
+    if (DEBUG)
+        std::cout << "After comparing with dealer, balance: " << player.balance << std::endl;
+    assert(player.balance == 1000);  // 1000 - 100 - 100 (due to double down) + 200 (push refund)
+}
+
 void test_split() {
     Player player(100);
     player.placeBet(10);
@@ -238,15 +280,19 @@ void test_balance_after_actions() {
 }
 
 int main() {
+    // basic tests
     test_deck();
     test_hand();
     test_player();
     test_dealer();
     test_double_down();
     test_split();
+
+    // advanced tests
     test_double_down_after_split();
     test_balance_after_actions();
     test_double_down_balance();
+    test_push_after_double_down();
 
     std::cout << "All tests passed!" << std::endl;
     return 0;
