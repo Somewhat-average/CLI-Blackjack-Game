@@ -5,6 +5,7 @@ BlackjackGame::BlackjackGame(std::shared_ptr<Player> player) : player(player) {}
 void BlackjackGame::playRound() {
     // Place bet
     int bet = ui.promptBet(player->balance);
+    std::cout << "bet entered: " << bet << std::endl;
     player->placeBet(bet);
 
     // Deal initial cards
@@ -13,7 +14,7 @@ void BlackjackGame::playRound() {
     player->addCardToHand(deck.drawCard(), 0);
     dealer.addCardToHand(deck.drawCard());
 
-    // display the initial game state
+    // Display the initial game state
     ui.displayInitialGameState(player, dealer);
 
     // Check for natural blackjacks
@@ -45,6 +46,10 @@ void BlackjackGame::playRound() {
             } else if (action == 'd') {
                 player->doubleDown(currentHand, deck.drawCard());
                 ui.displayHand(player->hands[currentHand]);
+                if (player->getHandValue(currentHand) > 21) {
+                    // Player busted after doubling down
+                    allPlayerHandsBusted = true;
+                }
                 break;
             } else if (action == 'p') {
                 player->splitHand(currentHand, deck.drawCard(), deck.drawCard());
@@ -65,12 +70,13 @@ void BlackjackGame::playRound() {
         ui.displayGameState(player, dealer, -1);
 
         for (int i = 0; i < player->getNumberOfHands(); ++i) {
+            int currentBet = player->bets[i];  // Get the actual bet for the current hand
             if (player->getHandValue(i) <= 21) {
                 int dealerHandValue = dealer.hand.calculateValue();
                 if (dealerHandValue > 21 || dealerHandValue < player->getHandValue(i)) {
-                    player->win(bet);
+                    player->win(currentBet);  // Use the actual bet instead of the original bet
                 } else if (dealerHandValue == player->getHandValue(i)) {
-                    player->push(bet);
+                    player->push(currentBet);  // Use the actual bet instead of the original bet
                 }
             }
         }
@@ -79,6 +85,7 @@ void BlackjackGame::playRound() {
     ui.displayRoundResult(player, dealer);
 
     player->resetHands();
+    player->resetBets();
     dealer.resetHand();
 }
 

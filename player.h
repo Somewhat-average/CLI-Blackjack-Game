@@ -21,6 +21,7 @@ public:
     void refundBet(int betAmount);
     void winBet(int betAmount);
     void resetHands();
+    void resetBets();
     void doubleDown(int handIndex, const Card& card);
     void splitHand(int handIndex, const Card& card1, const Card& card2);
 
