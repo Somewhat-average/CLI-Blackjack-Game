@@ -56,7 +56,7 @@ void Player::resetBets() {
 }
 
 bool Player::doubleDown(int handIndex, const Card &card) {
-    if (handIndex >= 0 && static_cast<size_t>(handIndex) < hands.size()) {
+    if (handIndex >= 0 && static_cast<size_t>(handIndex) < hands.size() && hands[handIndex].size() == 2) {
         if (balance - bets[handIndex] < 0) {
             return false; // Not enough balance to double down
         }
@@ -65,7 +65,7 @@ bool Player::doubleDown(int handIndex, const Card &card) {
         bets[handIndex] *= 2;
         return true; // Successfully doubled down
     }
-    return false; // Invalid hand index or other failure
+    return false; // Invalid hand index, too many cards, or other failure
 }
 
 bool Player::splitHand(int handIndex, const Card &card1, const Card &card2) {

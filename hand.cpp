@@ -4,6 +4,10 @@ void Hand::addCard(Card card) {
     cards.push_back(card);
 }
 
+int Hand::size() const {
+    return cards.size();
+}
+
 int Hand::calculateValue() const {
     int value = 0;
     int aces = 0;
