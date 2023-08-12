@@ -101,6 +101,8 @@ void BlackjackGame::playRound() {
 }
 
 void BlackjackGame::start(int numberOfRounds) {
+    ui.startGame();
+
     if (numberOfRounds <= 0) {
         // std::cout << "Starting an indefinite number of rounds." << std::endl;
         while (player->balance > 0) {

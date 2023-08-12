@@ -4,6 +4,10 @@
 #include <cctype> // Include this header for the tolower function
 #include <limits>
 
+void BlackjackUI::startGame() {
+    std::cout << "Available actions: (h: Hit, s: Stand, d: Double, p: Split)\n";
+}
+
 int BlackjackUI::promptBet(int balance) {
     const int MIN_BET = 1;
     int bet = 0;
@@ -33,7 +37,7 @@ char BlackjackUI::promptAction() {
     bool validInput = false;
 
     while (!validInput) {
-        std::cout << "Enter action (h: Hit, s: Stand, d: Double, p: Split): ";
+        std::cout << "Enter action: ";
         std::getline(std::cin, input);
 
         if (!input.empty()) {

@@ -8,6 +8,7 @@ class BlackjackUI {
 public:
     int promptBet(int balance);
     char promptAction();
+    void startGame();
     void displayError(const std::string& errorMessage);
     void displayBlackjackOutcome(bool playerHasBlackjack, bool dealerHasBlackjack);
     void displayInitialGameState(const std::shared_ptr<Player>& playerPtr, const Dealer& dealer);
