@@ -14,7 +14,7 @@ private:
     std::vector<Card> deck;
 
 public:
-    Deck();
+    Deck(int numberOfDecks);
 
     void shuffleDeck();
     Card drawCard();

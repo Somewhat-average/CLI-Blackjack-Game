@@ -1,20 +1,22 @@
 #include "deck.h"
 
-Deck::Deck() {
+Deck::Deck(int numberOfDecks) {
 	std::vector<std::string> suits = {"♥", "♦", "♣", "♠"};
 	std::vector<std::string> ranks = {"2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K", "A"};
-	for (const auto& rank : ranks) {
-		for (const auto& suit : suits) {
-	        int value;
-	        if (rank == "J" || rank == "Q" || rank == "K") {
-	            value = 10;
-	        } else if (rank == "A") {
-	            value = 11;
-	        } else {
-	            value = stoi(rank);
-	        }
-	        deck.push_back(Card(suit, rank, value));
-	    }
+	for (int deckNum=0; deckNum < numberOfDecks; ++deckNum) {
+		for (const auto& rank : ranks) {
+			for (const auto& suit : suits) {
+		        int value;
+		        if (rank == "J" || rank == "Q" || rank == "K") {
+		            value = 10;
+		        } else if (rank == "A") {
+		            value = 11;
+		        } else {
+		            value = stoi(rank);
+		        }
+		        deck.push_back(Card(suit, rank, value));
+		    }
+		}
 	}
 	currentIndex = 0;
 	shuffleDeck();

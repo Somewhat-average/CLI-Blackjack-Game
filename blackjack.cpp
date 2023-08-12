@@ -1,6 +1,6 @@
 #include "blackjack.h"
 
-BlackjackGame::BlackjackGame(std::shared_ptr<Player> player) : player(player) {}
+BlackjackGame::BlackjackGame(std::shared_ptr<Player> player) : deck(6), player(player){}
 
 void BlackjackGame::playRound() {
     // Place bet
