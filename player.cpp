@@ -22,8 +22,8 @@ void Player::placeBet(int bet) {
     bets.push_back(bet);
 }
 
-void Player::win(int amount) {
-    balance += 2 * amount;
+void Player::win(int handIndex) {
+    balance += 2 * bets[handIndex];
 }
 
 void Player::blackjackWin(int amount) {
@@ -31,6 +31,7 @@ void Player::blackjackWin(int amount) {
 }
 
 void Player::push(int handIndex) {
+    std::cout << "adding bets[" << handIndex << "]: " << bets[handIndex] << " to balance: " << balance << std::endl;
     balance += bets[handIndex];
 }
 

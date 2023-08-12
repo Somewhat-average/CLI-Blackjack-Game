@@ -81,14 +81,13 @@ void BlackjackGame::playRound() {
 
         ui.displayGameState(player, dealer, -1);
 
-        for (int i = 0; i < player->getNumberOfHands(); ++i) {
-            int currentBet = player->bets[i];  // Get the actual bet for the current hand
-            if (player->getHandValue(i) <= 21) {
+        for (int currentHand = 0; currentHand < player->getNumberOfHands(); ++currentHand) {
+            if (player->getHandValue(currentHand) <= 21) {
                 int dealerHandValue = dealer.hand.calculateValue();
-                if (dealerHandValue > 21 || dealerHandValue < player->getHandValue(i)) {
-                    player->win(currentBet);  // Use the actual bet instead of the original bet
-                } else if (dealerHandValue == player->getHandValue(i)) {
-                    player->push(currentBet);  // Use the actual bet instead of the original bet
+                if (dealerHandValue > 21 || dealerHandValue < player->getHandValue(currentHand)) {
+                    player->win(currentHand);
+                } else if (dealerHandValue == player->getHandValue(currentHand)) {
+                    player->push(currentHand);
                 }
             }
         }

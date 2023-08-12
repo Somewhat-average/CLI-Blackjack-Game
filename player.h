@@ -12,7 +12,7 @@ public:
     Player(int initial_balance);
 
     void placeBet(int bet);
-    void win(int amount);
+    void win(int handIndex);
     void blackjackWin(int amount);
     void push(int handIndex);
     void addCardToHand(const Card& card, int handIndex);
