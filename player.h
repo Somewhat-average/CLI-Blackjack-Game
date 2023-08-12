@@ -18,8 +18,6 @@ public:
     void addCardToHand(const Card& card, int handIndex);
     int getHandValue(int handIndex) const;
     int getNumberOfHands() const;
-    void refundBet(int betAmount);
-    void winBet(int betAmount);
     void resetHands();
     void resetBets();
     bool doubleDown(int handIndex, const Card& card);

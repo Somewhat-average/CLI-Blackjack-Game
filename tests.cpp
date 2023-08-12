@@ -77,8 +77,7 @@ void test_double_down_balance() {
     if (player.getHandValue(0) > 21) {
         // Player busted, no action needed as the bet is already lost
     } else if (dealer.getHandValue() > 21 || dealer.getHandValue() < player.getHandValue(0)) {
-        player.push(0); // Refund the bet for the hand
-        player.winBet(400); // Add winnings for the double down
+        player.win(0); // Add winnings for the double down
     }
 
     if (DEBUG)
@@ -223,7 +222,7 @@ void test_player() {
     player.placeBet(10);
     assert(player.balance == 90);
 
-    player.win(10);
+    player.win(0);
     assert(player.balance == 110);
 
     Card card1("♠", "A", 11);
@@ -285,7 +284,7 @@ void test_balance_after_actions() {
     Card splitCard2("♦", "6", 10);
     Card doubleDownCard("♣", "2", 2);  // This card ensures the first hand loses
     Card dealerCard1("♠", "10", 10);
-    Card dealerCard2("♠", "9", 7);  // Dealer's hand is 19, which beats the first hand but loses to the second
+    Card dealerCard2("♠", "7", 7);  // Dealer's hand is 17, which beats the first hand but loses to the second
 
     // Player splits
     player.resetHands();
@@ -306,12 +305,10 @@ void test_balance_after_actions() {
 
     // Check if the player's hand wins or loses against the dealer's hand
     if (dealer.getHandValue() > 21 || dealer.getHandValue() < player.getHandValue(0)) {
-        player.push(0); // Refund the bet for the first hand
-        player.winBet(20); // Add winnings for the double down
+        player.win(0); // Add winnings for the double down
     }
     if (dealer.getHandValue() > 21 || dealer.getHandValue() < player.getHandValue(1)) {
-        player.push(1); // Refund the bet for the second hand
-        player.winBet(10); // Add winnings for the second hand
+        player.win(1); // Add winnings for the second hand
     }
 
     if (DEBUG)

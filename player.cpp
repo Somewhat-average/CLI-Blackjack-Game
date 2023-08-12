@@ -31,20 +31,12 @@ void Player::blackjackWin(int amount) {
 }
 
 void Player::push(int handIndex) {
-    std::cout << "adding bets[" << handIndex << "]: " << bets[handIndex] << " to balance: " << balance << std::endl;
+    // std::cout << "adding bets[" << handIndex << "]: " << bets[handIndex] << " to balance: " << balance << std::endl;
     balance += bets[handIndex];
 }
 
 int Player::getNumberOfHands() const {
     return hands.size();
-}
-
-void Player::refundBet(int bet) {
-    balance += bet;
-}
-
-void Player::winBet(int bet) {
-    balance += bet;
 }
 
 void Player::resetHands() {
