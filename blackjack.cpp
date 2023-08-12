@@ -61,7 +61,7 @@ void BlackjackGame::playRound() {
 
             } else if (action == 'p') {
                 if (player->splitHand(currentHand, deck.drawCard(), deck.drawCard())) {
-                    ui.displayHand();
+                    ui.displayGameState();
                 } else {
                     ui.displayError("You cannot split this hand");
                 }
