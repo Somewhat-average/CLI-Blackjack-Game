@@ -12,7 +12,7 @@ public:
     void displayError(const std::string& errorMessage);
     void displayBlackjackOutcome(bool playerHasBlackjack, bool dealerHasBlackjack);
     void displayInitialGameState(const std::shared_ptr<Player>& playerPtr, const Dealer& dealer);
-    void displayGameState(const std::shared_ptr<Player>& playerPtr, const Dealer& dealer, int currentHand);
+    void displayGameState(const std::shared_ptr<Player>& playerPtr, const Dealer& dealer);
     void displayRoundResult(const std::shared_ptr<Player>& playerPtr, const Dealer& dealer);
     void displayHand(const Hand& hand);
     void displayCard(const Card& card);

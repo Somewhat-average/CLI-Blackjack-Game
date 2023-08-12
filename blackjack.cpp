@@ -23,9 +23,9 @@ void BlackjackGame::playRound() {
     if (playerHasBlackjack || dealerHasBlackjack) {
         ui.displayBlackjackOutcome(playerHasBlackjack, dealerHasBlackjack);
         if (playerHasBlackjack && dealerHasBlackjack) {
-            player->push();
+            player->push(0);
         } else if (playerHasBlackjack) {
-            player->blackjackWin();
+            player->blackjackWin(0);
         }
         
         player->resetHands();
@@ -61,7 +61,7 @@ void BlackjackGame::playRound() {
 
             } else if (action == 'p') {
                 if (player->splitHand(currentHand, deck.drawCard(), deck.drawCard())) {
-                    ui.displayGameState();
+                    ui.displayGameState(player, dealer);
                 } else {
                     ui.displayError("You cannot split this hand");
                 }
@@ -79,7 +79,7 @@ void BlackjackGame::playRound() {
             dealer.addCardToHand(deck.drawCard());
         }
 
-        ui.displayGameState(player, dealer, -1);
+        ui.displayGameState(player, dealer);
 
         for (int currentHand = 0; currentHand < player->getNumberOfHands(); ++currentHand) {
             if (player->getHandValue(currentHand) <= 21) {

@@ -22,15 +22,15 @@ void Player::placeBet(int bet) {
     bets.push_back(bet);
 }
 
-void Player::win(int handIndex = 0) {
+void Player::win(int handIndex) {
     balance += 2 * bets[handIndex];
 }
 
-void Player::blackjackWin(int handIndex = 0) {
+void Player::blackjackWin(int handIndex) {
     balance += bets[handIndex] * 2.5;
 }
 
-void Player::push(int handIndex = 0) {
+void Player::push(int handIndex) {
     // std::cout << "adding bets[" << handIndex << "]: " << bets[handIndex] << " to balance: " << balance << std::endl;
     balance += bets[handIndex];
 }

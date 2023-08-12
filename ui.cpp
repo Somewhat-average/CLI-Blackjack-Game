@@ -99,7 +99,7 @@ void BlackjackUI::displayInitialGameState(const std::shared_ptr<Player>& playerP
     }
 }
 
-void BlackjackUI::displayGameState(const std::shared_ptr<Player>& playerPtr, const Dealer& dealer, int currentHand) {
+void BlackjackUI::displayGameState(const std::shared_ptr<Player>& playerPtr, const Dealer& dealer) {
     Player& player = *playerPtr.get();
     std::cout << "Dealer's hand: \n";
     displayHand(dealer.hand);
