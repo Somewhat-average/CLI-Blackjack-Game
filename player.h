@@ -13,7 +13,7 @@ public:
 
     void placeBet(int bet);
     void win(int handIndex);
-    void blackjackWin(int amount);
+    void blackjackWin(int handIndex);
     void push(int handIndex);
     void addCardToHand(const Card& card, int handIndex);
     int getHandValue(int handIndex) const;

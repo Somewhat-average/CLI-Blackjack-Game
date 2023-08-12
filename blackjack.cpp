@@ -23,9 +23,9 @@ void BlackjackGame::playRound() {
     if (playerHasBlackjack || dealerHasBlackjack) {
         ui.displayBlackjackOutcome(playerHasBlackjack, dealerHasBlackjack);
         if (playerHasBlackjack && dealerHasBlackjack) {
-            player->push(0);
+            player->push();
         } else if (playerHasBlackjack) {
-            player->blackjackWin(bet);
+            player->blackjackWin();
         }
         
         player->resetHands();
@@ -61,7 +61,7 @@ void BlackjackGame::playRound() {
 
             } else if (action == 'p') {
                 if (player->splitHand(currentHand, deck.drawCard(), deck.drawCard())) {
-                    // split successful
+                    ui.displayHand();
                 } else {
                     ui.displayError("You cannot split this hand");
                 }
