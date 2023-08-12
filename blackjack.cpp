@@ -23,7 +23,7 @@ void BlackjackGame::playRound() {
     if (playerHasBlackjack || dealerHasBlackjack) {
         ui.displayBlackjackOutcome(playerHasBlackjack, dealerHasBlackjack);
         if (playerHasBlackjack && dealerHasBlackjack) {
-            player->refundBet(bet);
+            player->push(0);
         } else if (playerHasBlackjack) {
             player->blackjackWin(bet);
         }
