@@ -47,7 +47,7 @@ char BlackjackUI::promptAction() {
     bool validInput = false;
 
     while (!validInput) {
-        std::cout << "Enter action: ";
+        std::cout << "\nEnter action: ";
         std::getline(std::cin, input);
 
         if (!input.empty()) {
@@ -88,7 +88,7 @@ void BlackjackUI::displayBlackjackOutcome(bool playerHasBlackjack, bool dealerHa
 
 void BlackjackUI::displayInitialGameState(const std::shared_ptr<Player>& playerPtr, const Dealer& dealer) {
     Player& player = *playerPtr.get();
-    std::cout << "Dealer's upcard: ";
+    std::cout << "\nDealer's upcard: ";
     displayCard(dealer.hand.cards[0]);
     std::cout << '\n';
 
