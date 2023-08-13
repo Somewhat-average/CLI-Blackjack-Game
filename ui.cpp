@@ -4,6 +4,8 @@
 #include <cctype> // Include this header for the tolower function
 #include <limits>
 
+const char INVALID_ACTION = ' ';
+
 void BlackjackUI::startGame() {
     std::cout << R"(
  ________  ___      _________  ________  ___  __          ___  ________  ________  ____ __       
@@ -60,16 +62,20 @@ char BlackjackUI::promptAction() {
                     validInput = true;
                     return action;
                 default:
-                    std::cerr << "Invalid input. Please try again.\n";
+                    displayInvalidActionError();
                     break;
             }
         } else {
-            std::cerr << "Invalid input. Please try again.\n";
+            displayInvalidActionError();
         }
     }
 
     // This line should never be reached, but it's needed to prevent a compiler warning.
-    return ' ';
+    return INVALID_ACTION;
+}
+
+void BlackjackUI::displayInvalidActionError() {
+    std::cerr << "Invalid action. Please enter 'h', 's', 'd', or 'p'.\n";
 }
 
 void BlackjackUI::displayError(const std::string& errorMessage) {
