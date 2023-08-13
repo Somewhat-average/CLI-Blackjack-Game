@@ -21,7 +21,7 @@ void BlackjackUI::startGame() {
 }
 
 int BlackjackUI::promptBet(int balance) {
-    const int MIN_BET = 1;
+    const int MIN_BET = 5;
     const int MAX_BET = 100;
     int bet = 0;
     bool validInput = false;
