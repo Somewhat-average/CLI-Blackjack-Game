@@ -22,6 +22,7 @@ void BlackjackUI::startGame() {
 
 int BlackjackUI::promptBet(int balance) {
     const int MIN_BET = 1;
+    const int MAX_BET = 100;
     int bet = 0;
     bool validInput = false;
 
@@ -33,8 +34,12 @@ int BlackjackUI::promptBet(int balance) {
             std::cerr << "Invalid input. Please enter a valid numeric bet.\n";
             std::cin.clear();
             std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-        } else if (bet < MIN_BET || bet > balance) {
-            std::cerr << "Invalid bet. Please enter a bet between $" << MIN_BET << " and your current balance.\n";
+        } else if (bet < MIN_BET || bet > balance || bet > MAX_BET) {
+            if (bet > balance) {
+                std::cerr << "Invalid bet. Please enter a bet between $" << MIN_BET << " and " << balance << ".\n";
+            } else {
+                std::cerr << "Invalid bet. Please enter a bet between $" << MIN_BET << " and " << MAX_BET << ".\n";
+            }
         } else {
             validInput = true;
         }
