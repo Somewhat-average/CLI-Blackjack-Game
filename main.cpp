@@ -12,7 +12,7 @@
 using namespace std;
 
 int main() {
-    shared_ptr<Player> player = make_shared<Player>(1000);
+    shared_ptr<Player> player = make_shared<Player>(500);
     BlackjackGame game(player);
     game.start(); // number of rounds, default is indefinite
 
