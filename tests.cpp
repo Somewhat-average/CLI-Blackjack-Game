@@ -7,7 +7,7 @@
 const bool DEBUG = false;
 
 void test_deck() {
-    Deck deck;
+    Deck deck(6);
     assert(deck.drawCard().value >= 2 && deck.drawCard().value <= 11);
 }
 
