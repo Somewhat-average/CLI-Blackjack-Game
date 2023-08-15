@@ -20,9 +20,7 @@ void BlackjackUI::startGame() {
     std::cout << "Available actions: (h: Hit, s: Stand, d: Double, p: Split)\n\n";
 }
 
-int BlackjackUI::promptBet(int balance) {
-    const int MIN_BET = 5;
-    const int MAX_BET = 100;
+int BlackjackUI::promptBet(int balance, const int MIN_BET, const int MAX_BET) {
     int bet = 0;
     bool validInput = false;
 

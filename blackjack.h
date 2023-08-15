@@ -7,6 +7,9 @@
 
 class BlackjackGame {
 private:
+    const int MIN_BET = 5;
+    const int MAX_BET = 100;
+    
     Deck deck;
     std::shared_ptr<Player> player;
     Dealer dealer;
@@ -16,6 +19,6 @@ private:
 
 public:
     BlackjackGame(std::shared_ptr<Player> player);
-
     void start(int numberOfRounds = -1);
 };
+

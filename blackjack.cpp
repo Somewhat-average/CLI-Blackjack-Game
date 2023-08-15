@@ -4,7 +4,7 @@ BlackjackGame::BlackjackGame(std::shared_ptr<Player> player) : deck(6), player(p
 
 void BlackjackGame::playRound() {
     // Place bet
-    int bet = ui.promptBet(player->balance);
+    int bet = ui.promptBet(player->balance, MIN_BET, MAX_BET);
     player->placeBet(bet);
 
     // Deal initial cards
@@ -105,16 +105,16 @@ void BlackjackGame::start(int numberOfRounds) {
 
     if (numberOfRounds <= 0) {
         // std::cout << "Starting an indefinite number of rounds." << std::endl;
-        while (player->balance > 0) {
+        while (player->balance > MIN_BET) {
             playRound();
         }
         std::cout << "You have run out of money. Game Over!" << std::endl;
     } else {
         // std::cout << "Starting " << numberOfRounds << " rounds." << std::endl;
-        for (int i = 0; i < numberOfRounds && player->balance > 0; ++i) {
+        for (int i = 0; i < numberOfRounds && player->balance > MIN_BET; ++i) {
             playRound();
         }
-        if (player->balance == 0) {
+        if (player->balance < MIN_BET) {
             std::cout << "You have run out of money. Game Over!" << std::endl;
         } else {
             std::cout << "Game Over! You finished with a balance of $" << player->balance << std::endl;

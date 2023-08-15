@@ -6,7 +6,7 @@
 
 class BlackjackUI {
 public:
-    int promptBet(int balance);
+    int promptBet(int balance, const int MIN_BET, const int MAX_BET);
     char promptAction();
     void startGame();
     void displayInvalidActionError();
