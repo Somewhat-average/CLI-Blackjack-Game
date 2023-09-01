@@ -1,4 +1,4 @@
-#include "Player.h"
+#include "player.h"
 
 Player::Player(int initial_balance) : balance(initial_balance) {
     hands.push_back(Hand());

@@ -7,7 +7,6 @@
 #include <algorithm>
 #include "card.h"
 
-
 class Deck {
 private:
     size_t currentIndex;
