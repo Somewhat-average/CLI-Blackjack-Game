@@ -17,8 +17,8 @@ void BlackjackGame::playRound() {
     ui.displayInitialGameState(player, dealer);
 
     // Check for natural blackjacks
-    bool playerHasBlackjack = player->getHandValue(0) == 21;
-    bool dealerHasBlackjack = dealer.hand.calculateValue() == 21;
+    bool playerHasBlackjack = player->getHandValue(0) == BLACKJACK;
+    bool dealerHasBlackjack = dealer.hand.calculateValue() == BLACKJACK;
 
     if (playerHasBlackjack || dealerHasBlackjack) {
         ui.displayBlackjackOutcome(playerHasBlackjack, dealerHasBlackjack);
@@ -39,7 +39,7 @@ void BlackjackGame::playRound() {
     bool allPlayerHandsBusted = true;
 
     for (int currentHand = 0; currentHand < player->getNumberOfHands(); ++currentHand) {
-        while (player->getHandValue(currentHand) < 21) {
+        while (player->getHandValue(currentHand) < BLACKJACK) {
             char action = ui.promptAction();
 
             if (action == 'h') {
@@ -50,7 +50,7 @@ void BlackjackGame::playRound() {
             } else if (action == 'd') {
                 if (player->doubleDown(currentHand, deck.drawCard())) {
                     ui.displayHand(player->hands[currentHand]);
-                    if (player->getHandValue(currentHand) > 21) {
+                    if (player->getHandValue(currentHand) > BLACKJACK) {
                         // Player busted after doubling down
                         allPlayerHandsBusted = true;
                     }
@@ -68,7 +68,7 @@ void BlackjackGame::playRound() {
             }
         }
 
-        if (player->getHandValue(currentHand) <= 21) {
+        if (player->getHandValue(currentHand) <= BLACKJACK) {
             allPlayerHandsBusted = false;
         }
     }
@@ -82,9 +82,9 @@ void BlackjackGame::playRound() {
         ui.displayGameState(player, dealer);
 
         for (int currentHand = 0; currentHand < player->getNumberOfHands(); ++currentHand) {
-            if (player->getHandValue(currentHand) <= 21) {
+            if (player->getHandValue(currentHand) <= BLACKJACK) {
                 int dealerHandValue = dealer.hand.calculateValue();
-                if (dealerHandValue > 21 || dealerHandValue < player->getHandValue(currentHand)) {
+                if (dealerHandValue > BLACKJACK || dealerHandValue < player->getHandValue(currentHand)) {
                     player->win(currentHand);
                 } else if (dealerHandValue == player->getHandValue(currentHand)) {
                     player->push(currentHand);

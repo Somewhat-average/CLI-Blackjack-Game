@@ -9,6 +9,7 @@ class BlackjackGame {
 private:
     const int MIN_BET = 5;
     const int MAX_BET = 100;
+    const int BLACKJACK = 21;
     
     Deck deck;
     std::shared_ptr<Player> player;
