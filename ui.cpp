@@ -47,6 +47,10 @@ int BlackjackUI::promptBet(int balance, const int MIN_BET, const int MAX_BET) {
     return bet;
 }
 
+void BlackjackUI::displayInvalidActionError() {
+    std::cerr << "Invalid action. Please enter 'h', 's', 'd', or 'p'.\n";
+}
+
 char BlackjackUI::promptAction() {
     std::string input;
     bool validInput = false;
@@ -77,10 +81,6 @@ char BlackjackUI::promptAction() {
     return INVALID_ACTION;
 }
 
-void BlackjackUI::displayInvalidActionError() {
-    std::cerr << "Invalid action. Please enter 'h', 's', 'd', or 'p'.\n";
-}
-
 void BlackjackUI::displayError(const std::string& errorMessage) {
     std::cout << "Error: " << errorMessage << std::endl;
 }
@@ -93,6 +93,18 @@ void BlackjackUI::displayBlackjackOutcome(bool playerHasBlackjack, bool dealerHa
     } else if (dealerHasBlackjack) {
         std::cout << "Dealer has blackjack!\n\n";
     }
+}
+
+void BlackjackUI::displayCard(const Card& card) {
+    std::cout << card.rank << card.suit << ' ';
+}
+
+void BlackjackUI::displayHand(const Hand& hand) {
+    // std::cout << "Hand: ";
+    for (const auto& card : hand.cards) {
+        displayCard(card);
+    }
+    std::cout << "\nTotal: " << hand.calculateValue() << '\n';
 }
 
 void BlackjackUI::displayInitialGameState(const std::shared_ptr<Player>& playerPtr, const Dealer& dealer) {
@@ -143,14 +155,3 @@ void BlackjackUI::displayRoundResult(const std::shared_ptr<Player>& playerPtr, c
     }
 }
 
-void BlackjackUI::displayCard(const Card& card) {
-    std::cout << card.rank << card.suit << ' ';
-}
-
-void BlackjackUI::displayHand(const Hand& hand) {
-    // std::cout << "Hand: ";
-    for (const auto& card : hand.cards) {
-        displayCard(card);
-    }
-    std::cout << "\nTotal: " << hand.calculateValue() << '\n';
-}

@@ -3,8 +3,8 @@
 #include <vector>
 #include <chrono>
 #include <random>
-#include "pcg.h"
 #include <algorithm>
+#include "pcg.h"
 #include "card.h"
 
 class Deck {
