@@ -11,10 +11,11 @@ class Deck {
 private:
     size_t currentIndex;
     std::vector<Card> deck;
+    PCG engine;
 
 public:
     Deck(int numberOfDecks);
 
-    void shuffleDeck();
+    void shuffle();
     Card drawCard();
 };

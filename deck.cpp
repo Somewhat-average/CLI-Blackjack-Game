@@ -1,13 +1,10 @@
 #include "deck.h"
 
-Deck::Deck(int numberOfDecks) {
-    // Create a PCG engine and seed it with a combination of random device and chrono
-    std::random_device rd;
-    auto seed = std::chrono::high_resolution_clock::now().time_since_epoch().count();
-    PCG engine(seed, rd());  // Use the PCG class with seed and sequence
-    
-	std::vector<std::string> suits = {"♥", "♦", "♣", "♠"};
-	std::vector<std::string> ranks = {"2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K", "A"};
+Deck::Deck(int numberOfDecks) 
+    : engine(std::chrono::high_resolution_clock::now().time_since_epoch().count(), static_cast<uint64_t>(std::random_device()())) // Use the PCG class with seed and sequence
+{
+	const std::vector<std::string> suits = {"♥", "♦", "♣", "♠"};
+	const std::vector<std::string> ranks = {"2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K", "A"};
 
 	for (int deckNum=0; deckNum < numberOfDecks; ++deckNum) {
 		for (const auto& rank : ranks) {
@@ -25,12 +22,11 @@ Deck::Deck(int numberOfDecks) {
 		}
 	}
 	currentIndex = 0;
-	shuffleDeck();
+    shuffle();
 }
 
 
-void Deck::shuffleDeck() {
-    // Shuffle the elements in the cards_ container using the random engine
+void Deck::shuffle() {
     std::shuffle(deck.begin(), deck.end(), engine);
 }
 
@@ -38,7 +34,7 @@ void Deck::shuffleDeck() {
 Card Deck::drawCard() {
     if (currentIndex >= deck.size()) {
         // Reshuffle the deck if currentIndex exceeds the number of cards in the deck
-        shuffleDeck();  // Reshuffle the deck
+        shuffle();
         currentIndex = 0;  // Reset the currentIndex to 0
     }
 
